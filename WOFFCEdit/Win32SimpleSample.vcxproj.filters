@@ -122,7 +122,4 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
-  <ItemGroup>
-    <Media Include="database\data\Scene1.fbx" />
-  </ItemGroup>
 </Project>

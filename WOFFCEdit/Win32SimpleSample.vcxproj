@@ -200,10 +200,6 @@
     <ClInclude Include="ToolMain.h" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="database\data\Scene1.fbx">
-      <DeploymentContent>true</DeploymentContent>
-      <FileType>Document</FileType>
-    </Media>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
