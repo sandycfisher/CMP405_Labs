@@ -21,7 +21,7 @@ ToolMain::ToolMain()
 	m_toolInputCommands.mouse_X = 0;
 	m_toolInputCommands.mouse_Y = 0;
 	m_toolInputCommands.mouse_LB_Down = false;
-	
+	m_toolInputCommands.mouse_MB_Down = false;
 }
 
 
@@ -310,7 +310,6 @@ void ToolMain::Tick(MSG *msg)
 
 void ToolMain::UpdateInput(MSG * msg)
 {
-
 	switch (msg->message)
 	{
 		//Global inputs,  mouse position and keys etc
@@ -330,9 +329,20 @@ void ToolMain::UpdateInput(MSG * msg)
 		m_toolInputCommands.mouse_LB_Down = true;
 		break;
 	case WM_LBUTTONUP:
-		m_toolInputCommands.mouse_LB_Down = false;
+		m_toolInputCommands.mouse_LB_Down = false;		
 		break;
-
+	case WM_RBUTTONDOWN:
+		m_toolInputCommands.mouse_RB_Down = true;
+		break;
+	case WM_RBUTTONUP:
+		m_toolInputCommands.mouse_RB_Down = false;
+		break;
+	case WM_MBUTTONDOWN:
+		m_toolInputCommands.mouse_MB_Down = true;
+		break;
+	case WM_MBUTTONUP:
+		m_toolInputCommands.mouse_MB_Down = false;
+		break;
 	}
 	//here we update all the actual app functionality that we want.  This information will either be used int toolmain, or sent down to the renderer (Camera movement etc
 	//WASD movement
@@ -361,14 +371,14 @@ void ToolMain::UpdateInput(MSG * msg)
 	//rotation
 	if (m_keyArray['E'])
 	{
-		m_toolInputCommands.rotRight = true;
+		m_toolInputCommands.down = true;
 	}
-	else m_toolInputCommands.rotRight = false;
+	else m_toolInputCommands.down = false;
 	if (m_keyArray['Q'])
 	{
-		m_toolInputCommands.rotLeft = true;
+		m_toolInputCommands.up = true;
 	}
-	else m_toolInputCommands.rotLeft = false;
+	else m_toolInputCommands.up = false;
 
 	//WASD
 }

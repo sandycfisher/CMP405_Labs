@@ -21,6 +21,9 @@ public:
 
 private:
 
+	void CamNormalMode();
+	void CamArcBallMode();
+
 	InputCommands						m_InputCommands;
 	float								m_movespeed;
 
@@ -30,8 +33,14 @@ private:
 	DirectX::SimpleMath::Vector3		m_camLookAt;
 	DirectX::SimpleMath::Vector3		m_camLookDirection;
 	DirectX::SimpleMath::Vector3		m_camRight;
+	DirectX::SimpleMath::Vector3        m_camUp;
 	float m_camRotRate;
 
 	DirectX::SimpleMath::Matrix         m_view;
+
+	int m_mousePosXOne;
+	int m_mousePosXTwo;
+	int m_mousePosYOne;
+	int m_mousePosYTwo;
 };
 

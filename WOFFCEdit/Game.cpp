@@ -23,36 +23,6 @@ Game::Game()
 	//initial Settings
 	//modes
 	m_grid = false;
-
-	//functional
-	m_movespeed = 0.30;
-	m_camRotRate = 3.0;
-
-	//camera
-	m_camPosition.x = 0.0f;
-	m_camPosition.y = 3.7f;
-	m_camPosition.z = -3.5f;
-
-	m_camOrientation.x = 0;
-	m_camOrientation.y = 0;
-	m_camOrientation.z = 0;
-
-	m_camLookAt.x = 0.0f;
-	m_camLookAt.y = 0.0f;
-	m_camLookAt.z = 0.0f;
-
-	m_camLookDirection.x = 0.0f;
-	m_camLookDirection.y = 0.0f;
-	m_camLookDirection.z = 0.0f;
-
-	m_camRight.x = 0.0f;
-	m_camRight.y = 0.0f;
-	m_camRight.z = 0.0f;
-
-	m_camOrientation.x = 0.0f;
-	m_camOrientation.y = 0.0f;
-	m_camOrientation.z = 0.0f;
-
 }
 
 Game::~Game()
@@ -205,8 +175,13 @@ void Game::Render()
 	//CAMERA POSITION ON HUD
 	m_sprites->Begin();
 	WCHAR   Buffer[256];
-	std::wstring var = L"Cam X: " + std::to_wstring(m_camPosition.x) + L"Cam Z: " + std::to_wstring(m_camPosition.z);
-	m_font->DrawString(m_sprites.get(), var.c_str() , XMFLOAT2(100, 10), Colors::Yellow);
+
+	std::wstring varTwo = L"Mouse X: " + std::to_wstring(m_InputCommands.mouse_X) + L"Mouse Y: " + std::to_wstring(m_InputCommands.mouse_Y);
+	m_font->DrawString(m_sprites.get(), varTwo.c_str(), XMFLOAT2(100, 30), Colors::Yellow);
+	std::wstring varThree = L"Mouse middle clicked: " + std::to_wstring(m_InputCommands.mouse_MB_Down);
+	m_font->DrawString(m_sprites.get(), varThree.c_str(), XMFLOAT2(100, 10), Colors::Yellow);
+
+
 	m_sprites->End();
 
 	//RENDER OBJECTS FROM SCENEGRAPH

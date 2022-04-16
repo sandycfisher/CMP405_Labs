@@ -1,8 +1,9 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Camera.cpp
 C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Camera.cpp(10,20): warning C4305: '=': truncation from 'double' to 'float'
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Camera.cpp(61,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Camera.cpp(62,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Camera.cpp(90,66): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Camera.cpp(91,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Camera.cpp(92,66): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   DisplayChunk.cpp
 C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\DisplayChunk.cpp(14,50): warning C4305: '=': truncation from 'double' to 'float'
 C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\DisplayChunk.cpp(15,49): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
@@ -15,24 +16,23 @@ C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\DisplayChunk.cpp(189,14): warning C4101
 C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\DisplayChunk.cpp(189,22): warning C4101: 'index3': unreferenced local variable
 C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\DisplayChunk.cpp(189,6): warning C4101: 'index1': unreferenced local variable
   Game.cpp
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(28,20): warning C4305: '=': truncation from 'double' to 'float'
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(223,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(222,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(221,97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(207,10): warning C4101: 'Buffer': unreferenced local variable
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(582,82): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(582,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(583,81): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(583,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(586,19): warning C4018: '<': signed/unsigned mismatch
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(590,196): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(590,147): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(590,98): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(596,111): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(596,85): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(597,109): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(597,83): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(604,21): warning C4018: '<': signed/unsigned mismatch
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(198,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(197,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(196,97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(177,10): warning C4101: 'Buffer': unreferenced local variable
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(557,82): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(557,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(558,81): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(558,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(561,19): warning C4018: '<': signed/unsigned mismatch
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(565,196): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(565,147): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(565,98): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(571,111): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(571,85): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(572,109): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(572,83): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Game.cpp(579,21): warning C4018: '<': signed/unsigned mismatch
   MFCFrame.cpp
   _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
   MFCMain.cpp
