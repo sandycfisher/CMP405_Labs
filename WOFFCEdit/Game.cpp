@@ -180,6 +180,8 @@ void Game::Render()
 	m_font->DrawString(m_sprites.get(), varTwo.c_str(), XMFLOAT2(100, 30), Colors::Yellow);
 	std::wstring varThree = L"Mouse middle clicked: " + std::to_wstring(m_InputCommands.mouse_MB_Down);
 	m_font->DrawString(m_sprites.get(), varThree.c_str(), XMFLOAT2(100, 10), Colors::Yellow);
+    std::wstring varFour = L"Cam X: " + std::to_wstring(m_Camera.GetCamPosition().x) + L"Cam Y: " + std::to_wstring(m_Camera.GetCamPosition().y) + L"Cam Z: " + std::to_wstring(m_Camera.GetCamPosition().z);
+    m_font->DrawString(m_sprites.get(), varFour.c_str(), XMFLOAT2(100, 50), Colors::Yellow);
 
 
 	m_sprites->End();
@@ -585,6 +587,19 @@ int Game::MousePicking()
 				{
 					closestDistance = pickedDistance;
 					selectedID = i;
+                    m_Camera.SetPivot(m_displayList[i].m_position);
+
+                    m_displayList[i].m_model.get()->UpdateEffects([&](IEffect* effect)
+                    {
+                        auto fog = dynamic_cast<IEffectFog*>(effect);
+                        if (fog)
+                        {
+                            fog->SetFogEnabled(true);
+                            fog->SetFogStart(6); // assuming RH coordiantes
+                            fog->SetFogEnd(8);
+                            fog->SetFogColor(Colors::CornflowerBlue);
+                        }
+                    });
 				}
 			}
 		}

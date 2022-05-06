@@ -18,6 +18,8 @@ public:
 	void Update(DX::StepTimer const& timer);
 
 	DirectX::SimpleMath::Matrix GetViewMatrix();
+	DirectX::SimpleMath::Vector3 GetCamPosition();
+	void SetPivot(DirectX::SimpleMath::Vector3 _pivot);
 
 private:
 
@@ -34,7 +36,8 @@ private:
 	DirectX::SimpleMath::Vector3		m_camLookDirection;
 	DirectX::SimpleMath::Vector3		m_camRight;
 	DirectX::SimpleMath::Vector3        m_camUp;
-	float m_camRotRate;
+	float m_normalCamRotRate;
+	float m_arcballCamRotRate;
 
 	DirectX::SimpleMath::Matrix         m_view;
 
@@ -42,5 +45,7 @@ private:
 	int m_mousePosXTwo;
 	int m_mousePosYOne;
 	int m_mousePosYTwo;
+
+	DirectX::SimpleMath::Vector3 m_pivot;
 };
 

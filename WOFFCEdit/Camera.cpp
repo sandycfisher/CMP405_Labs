@@ -7,8 +7,9 @@ using namespace DirectX::SimpleMath;
 Camera::Camera()
 {
 	//functional
-	m_movespeed = 0.30;
-	m_camRotRate = 0.5;
+	m_movespeed = 0.3f;
+	m_normalCamRotRate = 0.5f;
+	m_arcballCamRotRate = 0.5f;
 
 	//camera
 	m_camPosition.x = 0.0f;
@@ -39,6 +40,8 @@ Camera::Camera()
 	m_mousePosXTwo = 0;
 	m_mousePosYOne = 0;
 	m_mousePosYTwo = 0;
+
+	m_pivot = Vector3(0, 0, 0);
 }
 
 Camera::~Camera()
@@ -58,6 +61,7 @@ void Camera::Update(DX::StepTimer const& timer)
 	else
 		CamNormalMode();
 
+
 }
 
 void Camera::Tick(InputCommands* Input)
@@ -74,16 +78,13 @@ void Camera::CamNormalMode()
 {
 	//TODO  any more complex than this, and the camera should be abstracted out to somewhere else
 	//camera motion is on a plane, so kill the 7 component of the look direction
-	Vector3 planarMotionVector = m_camLookDirection;
-	planarMotionVector.y = 0.0;
-
 	if (m_InputCommands.mouse_RB_Down)
 	{
 		int xChange = m_mousePosXTwo - m_mousePosXOne;
-		m_camOrientation.y += xChange * m_camRotRate;
+		m_camOrientation.y += xChange * m_normalCamRotRate;
 
 		int yChange = m_mousePosYTwo - m_mousePosYOne;
-		m_camOrientation.x += yChange * m_camRotRate;
+		m_camOrientation.x += yChange * m_normalCamRotRate;
 	}
 
 	//create look direction from Euler angles in m_camOrientation
@@ -137,8 +138,37 @@ void Camera::CamNormalMode()
 
 void Camera::CamArcBallMode()
 {
+
 	int xChange = m_mousePosXTwo - m_mousePosXOne;
 	int yChange = m_mousePosYTwo - m_mousePosYOne;
 
+	m_camOrientation.y = xChange * m_arcballCamRotRate;
+	m_camOrientation.x = yChange * m_arcballCamRotRate;
 
+	m_camLookDirection = m_pivot;
+
+	Matrix camPosMatrix = camPosMatrix.CreateTranslation((m_pivot + m_camPosition));
+	Matrix camRotXMatrix = camRotXMatrix.CreateRotationX((m_camOrientation.x * 3.1415 / 180));
+	Matrix camRotYMatrix = camRotYMatrix.CreateRotationY((m_camOrientation.y * 3.1415 / 180));
+
+	Matrix finalMatrix = Matrix::Identity;
+	finalMatrix = finalMatrix * camPosMatrix * camRotXMatrix * camRotYMatrix;
+
+	m_camPosition = Vector3(finalMatrix._41, finalMatrix._42, finalMatrix._43);
+
+	m_camLookAt = m_pivot;
+
+	m_view = Matrix::CreateLookAt(m_camPosition, m_camLookAt, Vector3::UnitY);
+	
+	m_camPosition = m_camPosition - m_pivot;
+}
+
+Vector3 Camera::GetCamPosition()
+{
+	return m_camPosition;
+}
+
+void Camera::SetPivot(DirectX::SimpleMath::Vector3 _pivot)
+{
+	m_pivot = _pivot;
 }
