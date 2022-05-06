@@ -6,3 +6,5 @@ WOFFCEdit/.vs/Win32SimpleSample/v16/ipch/AutoPCH/c2b5e2c28de858b8/DISPLAYCHUNK.i
 WOFFCEdit/.vs/Win32SimpleSample/v16/ipch/AutoPCH/819dc0ab39698cb0/TOOLMAIN.ipch
 WOFFCEdit/.vs/Win32SimpleSample/v16/ipch/AutoPCH/cde831aa841f3cec/MAIN.ipch
 WOFFCEdit/.vs/Win32SimpleSample/v16/ipch/AutoPCH/e8763cd355b6507a/TOOLMAIN.ipch
+WOFFCEdit/.vs/Win32SimpleSample/v16/ipch/AutoPCH/66c0b5c579fde8/MFCMAIN.ipch
+*.ipch

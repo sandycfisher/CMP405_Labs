@@ -182,6 +182,8 @@ void Game::Render()
 	m_font->DrawString(m_sprites.get(), varThree.c_str(), XMFLOAT2(100, 10), Colors::Yellow);
     std::wstring varFour = L"Cam X: " + std::to_wstring(m_Camera.GetCamPosition().x) + L"Cam Y: " + std::to_wstring(m_Camera.GetCamPosition().y) + L"Cam Z: " + std::to_wstring(m_Camera.GetCamPosition().z);
     m_font->DrawString(m_sprites.get(), varFour.c_str(), XMFLOAT2(100, 50), Colors::Yellow);
+    std::wstring varFive = L"Pivot X: " + std::to_wstring(m_Camera.GetPivot().x) + L"Pivot Y: " + std::to_wstring(m_Camera.GetPivot().y) + L"Pivot Z: " + std::to_wstring(m_Camera.GetPivot().z);
+    m_font->DrawString(m_sprites.get(), varFive.c_str(), XMFLOAT2(100, 70), Colors::Yellow);
 
 
 	m_sprites->End();
@@ -580,6 +582,15 @@ int Game::MousePicking()
 		// Loop through the mesh list for the object
 		for (int y = 0; y < m_displayList[i].m_model.get()->meshes.size(); y++)
 		{
+            m_displayList[i].m_model.get()->UpdateEffects([&](IEffect* effect)
+            {
+                 auto fog = dynamic_cast<IEffectFog*>(effect);
+                 if (fog)
+                 {
+                     fog->SetFogEnabled(false);
+                 }
+            });
+
 			// Checking for ray intersection
 			if (m_displayList[i].m_model.get()->meshes[y]->boundingBox.Intersects(nearPoint, pickingVector, pickedDistance))
 			{

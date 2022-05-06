@@ -42,6 +42,7 @@ Camera::Camera()
 	m_mousePosYTwo = 0;
 
 	m_pivot = Vector3(0, 0, 0);
+	temp = false;
 }
 
 Camera::~Camera()
@@ -158,9 +159,14 @@ void Camera::CamArcBallMode()
 
 	m_camLookAt = m_pivot;
 
-	m_view = Matrix::CreateLookAt(m_camPosition, m_camLookAt, Vector3::UnitY);
-	
-	m_camPosition = m_camPosition - m_pivot;
+	if (temp == false)
+	{
+		m_view = Matrix::CreateLookAt(m_camPosition, m_camLookAt, Vector3::UnitY);
+	}
+
+	m_camPosition = m_pivot - m_camPosition;
+
+	temp = !temp;
 }
 
 Vector3 Camera::GetCamPosition()
@@ -171,4 +177,9 @@ Vector3 Camera::GetCamPosition()
 void Camera::SetPivot(DirectX::SimpleMath::Vector3 _pivot)
 {
 	m_pivot = _pivot;
+}
+
+Vector3 Camera::GetPivot()
+{
+	return m_pivot;
 }

@@ -19,6 +19,7 @@ public:
 
 	DirectX::SimpleMath::Matrix GetViewMatrix();
 	DirectX::SimpleMath::Vector3 GetCamPosition();
+	DirectX::SimpleMath::Vector3 GetPivot();
 	void SetPivot(DirectX::SimpleMath::Vector3 _pivot);
 
 private:
@@ -47,5 +48,6 @@ private:
 	int m_mousePosYTwo;
 
 	DirectX::SimpleMath::Vector3 m_pivot;
+	bool temp;
 };
 
