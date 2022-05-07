@@ -111,7 +111,7 @@ void MFCMain::ToolBarButton1()
 
 void MFCMain::ToolBarButton2()
 {
-	m_ToolSystem.onActionSave();
+	m_ToolSystem.onActionObjectManipulation();
 }
 
 MFCMain::MFCMain()

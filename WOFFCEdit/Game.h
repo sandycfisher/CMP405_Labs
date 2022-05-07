@@ -53,6 +53,7 @@ public:
 	void ClearDisplayList();
 
 	int MousePicking();
+	void SetObjectFog(int ObjectID);
 
 #ifdef DXTK_AUDIO
 	void NewAudioDevice();

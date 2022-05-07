@@ -10,6 +10,7 @@ ToolMain::ToolMain()
 
 	m_currentChunk = 0;		//default value
 	m_selectedObject = 0;	//initial selection ID
+	m_lastSelectedObject = 0; // 
 	m_sceneGraph.clear();	//clear the vector for the scenegraph
 	m_databaseConnection = NULL;
 
@@ -281,35 +282,48 @@ void ToolMain::onActionSaveTerrain()
 }
 
 void ToolMain::onActionObjectManipulation()
-{
-
+{	
+	m_objectDialogue.Create(IDD_DIALOG2);
+	m_objectDialogue.ShowWindow(SW_SHOW);
+	m_objectDialogue.SetObjectData(&m_sceneGraph, &m_lastSelectedObject);
 }
 
 void ToolMain::Tick(MSG *msg)
 {
-	//do we have a selection
-	//do we have a mode
-	//are we clicking / dragging /releasing
-	//has something changed
-		//update Scenegraph
-		//add to scenegraph
-		//resend scenegraph to Direct X renderer
-
 	//Renderer Update Call
 	m_d3dRenderer.Tick(&m_toolInputCommands);
 
-	if (m_toolInputCommands.mouse_LB_Down)
+	if (!m_objectDialogue)
 	{
-		if (m_d3dRenderer.MousePicking() == m_selectedObject)
+		if (m_toolInputCommands.mouse_LB_Down)
 		{
-			m_selectedObject = 0;
-		}
-		else
+			if (m_d3dRenderer.MousePicking() == m_selectedObject)
+			{
+				m_selectedObject = 0;
+			}
+			else
+			{
+				m_lastSelectedObject = m_selectedObject;
+				m_selectedObject = m_d3dRenderer.MousePicking();
+			}
+
+			m_toolInputCommands.mouse_LB_Down = false;
+		}		
+	}
+
+	if (m_objectDialogue)
+	{
+		if (m_objectDialogue.m_isObjectManipulationMode)
 		{
-			m_selectedObject = m_d3dRenderer.MousePicking();
+			m_selectedObject = m_lastSelectedObject;
+			m_d3dRenderer.SetObjectFog(m_selectedObject);
 		}
-		
-		m_toolInputCommands.mouse_LB_Down = false;
+
+		if (m_objectDialogue.m_isListNeedingUpdated)
+		{
+			m_d3dRenderer.BuildDisplayList(&m_sceneGraph);
+			m_objectDialogue.m_isListNeedingUpdated = false;
+		}
 	}
 }
 

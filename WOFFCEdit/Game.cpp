@@ -588,6 +588,9 @@ int Game::MousePicking()
                  if (fog)
                  {
                      fog->SetFogEnabled(false);
+                     fog->SetFogStart(6); // assuming RH coordiantes
+                     fog->SetFogEnd(8);
+                     fog->SetFogColor(Colors::CornflowerBlue);
                  }
             });
 
@@ -600,17 +603,7 @@ int Game::MousePicking()
 					selectedID = i;
                     m_Camera.SetPivot(m_displayList[i].m_position);
 
-                    m_displayList[i].m_model.get()->UpdateEffects([&](IEffect* effect)
-                    {
-                        auto fog = dynamic_cast<IEffectFog*>(effect);
-                        if (fog)
-                        {
-                            fog->SetFogEnabled(true);
-                            fog->SetFogStart(6); // assuming RH coordiantes
-                            fog->SetFogEnd(8);
-                            fog->SetFogColor(Colors::CornflowerBlue);
-                        }
-                    });
+                    SetObjectFog(selectedID);
 				}
 			}
 		}
@@ -618,4 +611,16 @@ int Game::MousePicking()
 	}
 
 	return selectedID;
+}
+
+void Game::SetObjectFog(int ObjectID)
+{
+    m_displayList[ObjectID].m_model.get()->UpdateEffects([&](IEffect* effect)
+    {
+        auto fog = dynamic_cast<IEffectFog*>(effect);
+        if (fog)
+        {
+            fog->SetFogEnabled(true);
+        }
+    });
 }
