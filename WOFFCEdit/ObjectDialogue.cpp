@@ -5,7 +5,7 @@ IMPLEMENT_DYNAMIC(ObjectDialogue, CDialogEx)
 
 BEGIN_MESSAGE_MAP(ObjectDialogue, CDialogEx)
 	ON_COMMAND(IDOK, &ObjectDialogue::End) //ok button
-	ON_EN_UPDATE(IDC_EDIT1, &ObjectDialogue::SetObjectPosX)
+	ON_EN_CHANGE(IDC_EDIT1, &ObjectDialogue::SetObjectPosX)
 	ON_EN_CHANGE(IDC_EDIT2, &ObjectDialogue::SetObjectPosY)
 	ON_EN_CHANGE(IDC_EDIT3, &ObjectDialogue::SetObjectPosZ)
 	ON_EN_CHANGE(IDC_EDIT4, &ObjectDialogue::SetObjectRotX)
@@ -87,7 +87,6 @@ void ObjectDialogue::SetObjectData(std::vector<SceneObject>* SceneGraph, int* se
 void ObjectDialogue::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_STATIC1_, m_static);
 }
 
 void ObjectDialogue::End()

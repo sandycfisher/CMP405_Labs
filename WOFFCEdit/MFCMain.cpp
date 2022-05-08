@@ -8,6 +8,7 @@ BEGIN_MESSAGE_MAP(MFCMain, CWinApp)
 	ON_COMMAND(ID_EDIT_SELECT, &MFCMain::MenuEditSelect)
 	ON_COMMAND(ID_BUTTON40001,	&MFCMain::ToolBarButton1)
 	ON_COMMAND(ID_BUTTON40007,	&MFCMain::ToolBarButton2)
+	ON_COMMAND(ID_BUTTON40006, &MFCMain::ToolBarButton3)
 	ON_UPDATE_COMMAND_UI(ID_INDICATOR_TOOL, &CMyFrame::OnUpdatePage)
 END_MESSAGE_MAP()
 
@@ -112,6 +113,11 @@ void MFCMain::ToolBarButton1()
 void MFCMain::ToolBarButton2()
 {
 	m_ToolSystem.onActionObjectManipulation();
+}
+
+void MFCMain::ToolBarButton3()
+{
+	m_ToolSystem.onTerrainTool();
 }
 
 MFCMain::MFCMain()

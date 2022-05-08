@@ -607,7 +607,6 @@ int Game::MousePicking()
 				}
 			}
 		}
-
 	}
 
 	return selectedID;
@@ -623,4 +622,10 @@ void Game::SetObjectFog(int ObjectID)
             fog->SetFogEnabled(true);
         }
     });
+}
+
+void Game::ManipulateTerrain(bool isDirectionUp, int index)
+{
+    m_displayChunk.GenerateHeightmap(index, isDirectionUp);
+    m_displayChunk.SaveHeightMap();
 }

@@ -179,9 +179,30 @@ void DisplayChunk::UpdateTerrain()
 
 }
 
-void DisplayChunk::GenerateHeightmap()
+void DisplayChunk::GenerateHeightmap(int position, bool isDirectionUp)
 {
-	//insert how YOU want to update the heigtmap here! :D
+	int change = 1;
+
+	if (!isDirectionUp)
+	{
+		change *= -1;
+	}
+
+	int x = 64;
+	int y = 2;
+
+	m_heightMap[(position - 1)] += change;
+	m_heightMap[(position)] += change;
+	m_heightMap[(position + 1)] += change;
+	
+	m_heightMap[((position - 1) + TERRAINRESOLUTION)] += change;
+	m_heightMap[((position) + TERRAINRESOLUTION)] += change;
+	m_heightMap[((position + 1) + TERRAINRESOLUTION)] += change;
+	
+	m_heightMap[((position - 1) - TERRAINRESOLUTION)] += change;
+	m_heightMap[((position) - TERRAINRESOLUTION)] += change;
+	m_heightMap[((position + 1) - TERRAINRESOLUTION)] += change;
+
 }
 
 void DisplayChunk::CalculateTerrainNormals()

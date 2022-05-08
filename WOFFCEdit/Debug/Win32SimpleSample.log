@@ -1,22 +1,6 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  ObjectDialogue.cpp
+  TerrainTool.cpp
   _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(50,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(54,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(58,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(62,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(66,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(70,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(74,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(78,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(82,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(104,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(114,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(124,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(134,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(144,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(154,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(164,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(174,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\ObjectDialogue.cpp(184,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\TerrainTool.cpp(103,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\TerrainTool.cpp(111,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Win32SimpleSample.vcxproj -> C:\Uni Work\CMP405\CMP405_Labs\WOFFCEdit\Debug\WoFEdit.exe

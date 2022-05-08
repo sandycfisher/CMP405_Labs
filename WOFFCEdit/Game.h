@@ -55,6 +55,9 @@ public:
 	int MousePicking();
 	void SetObjectFog(int ObjectID);
 
+	void ManipulateTerrain(bool isDirectionUp, int index);
+
+
 #ifdef DXTK_AUDIO
 	void NewAudioDevice();
 #endif

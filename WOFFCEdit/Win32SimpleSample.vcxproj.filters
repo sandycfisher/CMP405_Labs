@@ -63,7 +63,10 @@
       <Filter>Tool</Filter>
     </ClCompile>
     <ClCompile Include="ObjectDialogue.cpp">
-      <Filter>MFC</Filter>
+      <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainTool.cpp">
+      <Filter>Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,7 +121,10 @@
       <Filter>Tool</Filter>
     </ClInclude>
     <ClInclude Include="ObjectDialogue.h">
-      <Filter>MFC</Filter>
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainTool.h">
+      <Filter>Tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@ Camera::Camera()
 	//functional
 	m_movespeed = 0.3f;
 	m_normalCamRotRate = 0.5f;
-	m_arcballCamRotRate = 0.5f;
+	m_arcballCamRotRate = 0.75f;
 
 	//camera
 	m_camPosition.x = 0.0f;
@@ -56,6 +56,10 @@ void Camera::Update(DX::StepTimer const& timer)
 	m_mousePosXOne = m_InputCommands.mouse_X;
 	m_mousePosYTwo = m_mousePosYOne;
 	m_mousePosYOne = m_InputCommands.mouse_Y;
+
+	if (temp == true && m_InputCommands.mouse_MB_Down == false)	
+		CamArcBallMode();
+	
 
 	if (m_InputCommands.mouse_MB_Down)
 		CamArcBallMode();

@@ -288,30 +288,40 @@ void ToolMain::onActionObjectManipulation()
 	m_objectDialogue.SetObjectData(&m_sceneGraph, &m_lastSelectedObject);
 }
 
+void ToolMain::onTerrainTool()
+{
+	m_terrainTool.Create(IDD_DIALOG3);
+	m_terrainTool.ShowWindow(SW_SHOW);
+	m_terrainTool.SetObjectData(&m_sceneGraph, &m_lastSelectedObject);
+}
+
 void ToolMain::Tick(MSG *msg)
 {
 	//Renderer Update Call
 	m_d3dRenderer.Tick(&m_toolInputCommands);
 
-	if (!m_objectDialogue)
+	if (!m_terrainTool)
 	{
-		if (m_toolInputCommands.mouse_LB_Down)
+		if (!m_objectDialogue)
 		{
-			if (m_d3dRenderer.MousePicking() == m_selectedObject)
+			if (m_toolInputCommands.mouse_LB_Down)
 			{
-				m_selectedObject = 0;
-			}
-			else
-			{
-				m_lastSelectedObject = m_selectedObject;
-				m_selectedObject = m_d3dRenderer.MousePicking();
-			}
+				if (m_d3dRenderer.MousePicking() == m_selectedObject)
+				{
+					m_selectedObject = 0;
+				}
+				else
+				{
+					m_lastSelectedObject = m_selectedObject;
+					m_selectedObject = m_d3dRenderer.MousePicking();
+				}
 
-			m_toolInputCommands.mouse_LB_Down = false;
-		}		
+				m_toolInputCommands.mouse_LB_Down = false;
+			}
+		}
 	}
 
-	if (m_objectDialogue)
+	if (m_objectDialogue || m_terrainTool)
 	{
 		if (m_objectDialogue.m_isObjectManipulationMode)
 		{
@@ -323,6 +333,15 @@ void ToolMain::Tick(MSG *msg)
 		{
 			m_d3dRenderer.BuildDisplayList(&m_sceneGraph);
 			m_objectDialogue.m_isListNeedingUpdated = false;
+		}
+
+		if (m_terrainTool.m_isTerrainMode)
+		{
+			if (m_toolInputCommands.mouse_LB_Down)
+			{
+				m_d3dRenderer.ManipulateTerrain(m_terrainTool.m_isDirectionUp, (int)(m_terrainTool.m_brushPosX + (m_terrainTool.m_brushPosY * 128)));
+				m_d3dRenderer.BuildDisplayChunk(&m_chunk);
+			}
 		}
 	}
 }

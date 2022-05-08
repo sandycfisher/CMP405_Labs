@@ -7,6 +7,7 @@
 #include "SceneObject.h"
 #include "InputCommands.h"
 #include "ObjectDialogue.h"
+#include "TerrainTool.h"
 #include <vector>
 
 
@@ -24,6 +25,7 @@ public: //methods
 	afx_msg	void	onActionSave();											//save the current chunk
 	afx_msg void	onActionSaveTerrain();									//save chunk geometry
 	afx_msg void    onActionObjectManipulation();
+	afx_msg void    onTerrainTool();
 
 	void	Tick(MSG *msg);
 	void	UpdateInput(MSG *msg);
@@ -52,4 +54,5 @@ private:	//variables
 	int m_currentChunk;			//the current chunk of thedatabase that we are operating on.  Dictates loading and saving. 
 
 	ObjectDialogue m_objectDialogue;
+	TerrainTool m_terrainTool;
 };
