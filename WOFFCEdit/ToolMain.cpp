@@ -283,64 +283,69 @@ void ToolMain::onActionSaveTerrain()
 
 void ToolMain::onActionObjectManipulation()
 {	
-	m_objectDialogue.Create(IDD_DIALOG2);
-	m_objectDialogue.ShowWindow(SW_SHOW);
-	m_objectDialogue.SetObjectData(&m_sceneGraph, &m_lastSelectedObject);
+	m_objectDialogue.Create(IDD_DIALOG2); // Create the object manipulation dialog box
+	m_objectDialogue.ShowWindow(SW_SHOW); // Show the dialog box
+	m_objectDialogue.SetObjectData(&m_sceneGraph, &m_lastSelectedObject); // Set the dialog box variables to default value
 }
 
 void ToolMain::onTerrainTool()
 {
-	m_terrainTool.Create(IDD_DIALOG3);
-	m_terrainTool.ShowWindow(SW_SHOW);
-	m_terrainTool.SetObjectData(&m_sceneGraph, &m_lastSelectedObject);
+	m_terrainTool.Create(IDD_DIALOG3); // Create the terrain manipulation dialog box
+	m_terrainTool.ShowWindow(SW_SHOW); // Show the dialog box
+	m_terrainTool.SetObjectData(); // Set the dialog box variables to default values
 }
 
 void ToolMain::Tick(MSG *msg)
 {
 	//Renderer Update Call
 	m_d3dRenderer.Tick(&m_toolInputCommands);
+	m_terrainTool.Tick(&m_toolInputCommands);
 
-	if (!m_terrainTool)
+	if (!m_terrainTool) // If the terrain tool dialog box is not open
 	{
-		if (!m_objectDialogue)
+		if (!m_objectDialogue) // If the object manipulation dialog box is not open
 		{
-			if (m_toolInputCommands.mouse_LB_Down)
+			if (m_toolInputCommands.mouse_LB_Down) // If the left mouse button is down
 			{
-				if (m_d3dRenderer.MousePicking() == m_selectedObject)
+				if (m_d3dRenderer.MousePicking() == m_selectedObject) // If the user clicked on the same object
 				{
-					m_selectedObject = 0;
+					m_d3dRenderer.SetObjectFogFalse(m_selectedObject);
+					m_selectedObject = 0; // Make sure that the object is no longer selected					
 				}
-				else
+				else // If not
 				{
-					m_lastSelectedObject = m_selectedObject;
-					m_selectedObject = m_d3dRenderer.MousePicking();
+					m_lastSelectedObject = m_selectedObject; // Set the last selected object clicked to be the currently selected object
+					m_selectedObject = m_d3dRenderer.MousePicking(); // Set the currently selected object to be the new one selected
 				}
 
-				m_toolInputCommands.mouse_LB_Down = false;
+				m_toolInputCommands.mouse_LB_Down = false; // Set the left mouse button to be down so that this is not called every frame while the button is down
 			}
 		}
 	}
 
-	if (m_objectDialogue || m_terrainTool)
+	if (m_objectDialogue || m_terrainTool) // If the terrain tool or the object manipulation tool dialog boxes exist
 	{
-		if (m_objectDialogue.m_isObjectManipulationMode)
+		if (m_objectDialogue.m_isObjectManipulationMode) // If the object manipulation dialog box has its mode turned to be true
 		{
-			m_selectedObject = m_lastSelectedObject;
-			m_d3dRenderer.SetObjectFog(m_selectedObject);
+			m_selectedObject = m_lastSelectedObject; // Set the selected object to be the last selected object
+			m_d3dRenderer.SetObjectFogTrue(m_selectedObject); // Set the fog to be the currently selected object
 		}
 
-		if (m_objectDialogue.m_isListNeedingUpdated)
+		if (m_objectDialogue.m_isListNeedingUpdated) // If the object manipulation dialog box needs the object list to be updated 
 		{
-			m_d3dRenderer.BuildDisplayList(&m_sceneGraph);
-			m_objectDialogue.m_isListNeedingUpdated = false;
+			m_d3dRenderer.BuildDisplayList(&m_sceneGraph); // Update the object list
+			m_objectDialogue.m_isListNeedingUpdated = false; // Set the list to no longer be needing updaed
 		}
 
-		if (m_terrainTool.m_isTerrainMode)
+		if (m_terrainTool.m_isTerrainMode) // If the terrain tool dialog box exists
 		{
-			if (m_toolInputCommands.mouse_LB_Down)
+			if (m_toolInputCommands.mouse_LB_Down) // If the left mouse button is held down
 			{
-				m_d3dRenderer.ManipulateTerrain(m_terrainTool.m_isDirectionUp, (int)(m_terrainTool.m_brushPosX + (m_terrainTool.m_brushPosY * 128)));
-				m_d3dRenderer.BuildDisplayChunk(&m_chunk);
+				int xPos = int(m_terrainTool.m_brushPosX + m_terrainTool.m_xChange); // Set temp x pos to be the brush position plus the change in the mouse's x position since the object manipulation was set in motion
+				int yPos = int(int(m_terrainTool.m_brushPosY + m_terrainTool.m_yChange) * 128);// Set temp y pos to be the brush position plus the change in the mouse's y position since the object manipulation was set in motion
+
+				m_d3dRenderer.ManipulateTerrain(m_terrainTool.m_isDirectionUp, xPos + yPos); // Manipulate the terrain at the defined location and in the appropriate direction
+				m_d3dRenderer.BuildDisplayChunk(&m_chunk); // Show the changed in the height map to the user
 			}
 		}
 	}

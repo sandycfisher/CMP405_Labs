@@ -181,24 +181,24 @@ void DisplayChunk::UpdateTerrain()
 
 void DisplayChunk::GenerateHeightmap(int position, bool isDirectionUp)
 {
-	int change = 1;
+	int change = 1; // Temp variable
 
-	if (!isDirectionUp)
+	if (!isDirectionUp) // If terrain manipulation is meant to be downwards
 	{
-		change *= -1;
+		change *= -1; // Change the variable to be -1
 	}
 
-	int x = 64;
-	int y = 2;
-
-	m_heightMap[(position - 1)] += change;
+	// Alter middle row
+	m_heightMap[(position - 1)] += change; 
 	m_heightMap[(position)] += change;
 	m_heightMap[(position + 1)] += change;
 	
+	// Alter one row across
 	m_heightMap[((position - 1) + TERRAINRESOLUTION)] += change;
 	m_heightMap[((position) + TERRAINRESOLUTION)] += change;
 	m_heightMap[((position + 1) + TERRAINRESOLUTION)] += change;
 	
+	// Alter opposite row
 	m_heightMap[((position - 1) - TERRAINRESOLUTION)] += change;
 	m_heightMap[((position) - TERRAINRESOLUTION)] += change;
 	m_heightMap[((position + 1) - TERRAINRESOLUTION)] += change;

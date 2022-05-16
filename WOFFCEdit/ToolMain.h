@@ -24,8 +24,8 @@ public: //methods
 	void	onActionLoad();													//load the current chunk
 	afx_msg	void	onActionSave();											//save the current chunk
 	afx_msg void	onActionSaveTerrain();									//save chunk geometry
-	afx_msg void    onActionObjectManipulation();
-	afx_msg void    onTerrainTool();
+	afx_msg void    onActionObjectManipulation(); // When the object manipulation icon is clicked this function is called
+	afx_msg void    onTerrainTool(); // When the terrain tool icon is clicked this function is called
 
 	void	Tick(MSG *msg);
 	void	UpdateInput(MSG *msg);
@@ -53,6 +53,6 @@ private:	//variables
 	int m_height;
 	int m_currentChunk;			//the current chunk of thedatabase that we are operating on.  Dictates loading and saving. 
 
-	ObjectDialogue m_objectDialogue;
-	TerrainTool m_terrainTool;
+	ObjectDialogue m_objectDialogue; // Object manipulation tool
+	TerrainTool m_terrainTool; // Terrain manipulation tool
 };

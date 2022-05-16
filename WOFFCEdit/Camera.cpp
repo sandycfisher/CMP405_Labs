@@ -6,43 +6,45 @@ using namespace DirectX::SimpleMath;
 
 Camera::Camera()
 {
-	//functional
+	// Setting movement rate variables
 	m_movespeed = 0.3f;
 	m_normalCamRotRate = 0.5f;
 	m_arcballCamRotRate = 0.75f;
 
-	//camera
+	// Setting position
 	m_camPosition.x = 0.0f;
 	m_camPosition.y = 3.7f;
 	m_camPosition.z = -3.5f;
-
+	
+	// Setting orientation
 	m_camOrientation.x = 0;
 	m_camOrientation.y = 0;
 	m_camOrientation.z = 0;
 
+	// Setting look at
 	m_camLookAt.x = 0.0f;
 	m_camLookAt.y = 0.0f;
 	m_camLookAt.z = 0.0f;
 
+	// Setting look direction
 	m_camLookDirection.x = 0.0f;
 	m_camLookDirection.y = 0.0f;
 	m_camLookDirection.z = 0.0f;
 
+	// Setting right vector
 	m_camRight.x = 0.0f;
 	m_camRight.y = 0.0f;
 	m_camRight.z = 0.0f;
-
-	m_camOrientation.x = 0.0f;
-	m_camOrientation.y = 0.0f;
-	m_camOrientation.z = 0.0f;
 	
+	// Setting mouse pos'
 	m_mousePosXOne = 0;
 	m_mousePosXTwo = 0;
 	m_mousePosYOne = 0;
 	m_mousePosYTwo = 0;
 
+	// Setting arcball variables
 	m_pivot = Vector3(0, 0, 0);
-	temp = false;
+	m_isReset = false;
 }
 
 Camera::~Camera()
@@ -52,26 +54,26 @@ Camera::~Camera()
 
 void Camera::Update(DX::StepTimer const& timer)
 {
-	m_mousePosXTwo = m_mousePosXOne;
-	m_mousePosXOne = m_InputCommands.mouse_X;
-	m_mousePosYTwo = m_mousePosYOne;
-	m_mousePosYOne = m_InputCommands.mouse_Y;
+	m_mousePosXTwo = m_mousePosXOne; // Set previous mouse x to be current mouse x before it is replaced
+	m_mousePosXOne = m_InputCommands.mouse_X; // Update the current mouse x pos
+	m_mousePosYTwo = m_mousePosYOne; // Set previous mouse y to be current mouse y before it is replaced
+	m_mousePosYOne = m_InputCommands.mouse_Y; // Update the current mouse y pos
 
-	if (temp == true && m_InputCommands.mouse_MB_Down == false)	
-		CamArcBallMode();
+	if (m_isReset == true && m_InputCommands.mouse_MB_Down == false) // If the arcball camera is needing reset and the middle mouse button is down
+		CamArcBallMode(); // Go through one more loop of the arcball camera to reset it
 	
 
-	if (m_InputCommands.mouse_MB_Down)
-		CamArcBallMode();
-	else
-		CamNormalMode();
+	if (m_InputCommands.mouse_MB_Down) // If the middle mouse button is down
+		CamArcBallMode(); // Do arcball functionality
+	else // If not
+		CamNormalMode(); // Do free view functionality
 
 
 }
 
 void Camera::Tick(InputCommands* Input)
 {
-	m_InputCommands = *Input;
+	m_InputCommands = *Input; // Update input
 }
 
 Matrix Camera::GetViewMatrix()
@@ -81,31 +83,28 @@ Matrix Camera::GetViewMatrix()
 
 void Camera::CamNormalMode()
 {
-	//TODO  any more complex than this, and the camera should be abstracted out to somewhere else
-	//camera motion is on a plane, so kill the 7 component of the look direction
-	if (m_InputCommands.mouse_RB_Down)
+	if (m_InputCommands.mouse_RB_Down) // If the right mouse button is down
 	{
-		int xChange = m_mousePosXTwo - m_mousePosXOne;
-		m_camOrientation.y += xChange * m_normalCamRotRate;
+		int xChange = m_mousePosXTwo - m_mousePosXOne; // Find out the difference in movement for the mouse's x position
+		m_camOrientation.y += xChange * m_normalCamRotRate; // Change orientation accordingly
 
-		int yChange = m_mousePosYTwo - m_mousePosYOne;
-		m_camOrientation.x += yChange * m_normalCamRotRate;
+		int yChange = m_mousePosYTwo - m_mousePosYOne; // Find out the difference in movement for the mouse's y position
+		m_camOrientation.x += yChange * m_normalCamRotRate; // Change orientation accordingly
 	}
 
-	//create look direction from Euler angles in m_camOrientation
+	// Create look direction from Euler angles in m_camOrientation
 	m_camLookDirection.x = sin((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
 	m_camLookDirection.y = sin((m_camOrientation.x) * 3.1415 / 180);
 	m_camLookDirection.z = cos((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
-	m_camLookDirection.Normalize();
+	m_camLookDirection.Normalize(); // Normalise values
 
-	//create right vector from look Direction
+	// Create right and up vectors from look Direction
 	m_camLookDirection.Cross(Vector3::UnitY, m_camRight);
 	m_camLookDirection.Cross(m_camRight, m_camUp);
 
 
 
-	//process input and update stuff
-
+	//process input and update position
 	if (m_InputCommands.forward)
 	{
 		m_camPosition += m_camLookDirection * m_movespeed;
@@ -144,33 +143,37 @@ void Camera::CamNormalMode()
 void Camera::CamArcBallMode()
 {
 
-	int xChange = m_mousePosXTwo - m_mousePosXOne;
-	int yChange = m_mousePosYTwo - m_mousePosYOne;
+	int xChange = m_mousePosXTwo - m_mousePosXOne; // Find out the difference in movement for the mouse's x position
+	int yChange = m_mousePosYTwo - m_mousePosYOne; // Find out the difference in movement for the mouse's y position
 
+	// Change orientation accordingly
 	m_camOrientation.y = xChange * m_arcballCamRotRate;
 	m_camOrientation.x = yChange * m_arcballCamRotRate;
 
-	m_camLookDirection = m_pivot;
+	m_camLookDirection = m_pivot; // Set the look direction to be the pivot's location
 
-	Matrix camPosMatrix = camPosMatrix.CreateTranslation((m_pivot + m_camPosition));
-	Matrix camRotXMatrix = camRotXMatrix.CreateRotationX((m_camOrientation.x * 3.1415 / 180));
-	Matrix camRotYMatrix = camRotYMatrix.CreateRotationY((m_camOrientation.y * 3.1415 / 180));
+	Matrix camPosMatrix = camPosMatrix.CreateTranslation((m_pivot + m_camPosition)); // Create translation matrix by creating a vector from the camera and pivot's position
+	Matrix camRotXMatrix = camRotXMatrix.CreateRotationX((m_camOrientation.x * 3.1415 / 180)); // Create a rotation in the x direction using the x value of the camera orientation
+	Matrix camRotYMatrix = camRotYMatrix.CreateRotationY((m_camOrientation.y * 3.1415 / 180)); // Create a rotation in the y direction using the y value of the camera orientation
 
-	Matrix finalMatrix = Matrix::Identity;
-	finalMatrix = finalMatrix * camPosMatrix * camRotXMatrix * camRotYMatrix;
+	Matrix finalMatrix = Matrix::Identity; // Create final multiplication matrix
+	finalMatrix = finalMatrix * camPosMatrix * camRotXMatrix * camRotYMatrix; // Multiply matrices in appropriate order. TRANSLATE FIRST THEN ROTATE TO CREATE THE ARCBALL EFFECT
 
-	m_camPosition = Vector3(finalMatrix._41, finalMatrix._42, finalMatrix._43);
+	m_camPosition = Vector3(finalMatrix._41, finalMatrix._42, finalMatrix._43); // Update the camera's position to be the values from the matrix
 
-	m_camLookAt = m_pivot;
+	m_camLookAt = m_pivot; // Set the camera look at to be the pivot
 
-	if (temp == false)
+	// This is here so that the arcball camera remains at the right distance from where it started. This is because the following lines flip the camera position in order for it to be 
+	// at the right position. So in order for the user to see the camera only when the camera is not flipped the view matrix is only updated every second frame. This does half the frame 
+	// rate of the camera, but I couldn't find a better solution... :/
+	if (m_isReset == false)
 	{
 		m_view = Matrix::CreateLookAt(m_camPosition, m_camLookAt, Vector3::UnitY);
 	}
 
-	m_camPosition = m_pivot - m_camPosition;
+	m_camPosition = m_pivot - m_camPosition; // Set camera position to be flipped or unflipped depending on the state
 
-	temp = !temp;
+	m_isReset = !m_isReset; // Change the boolean variable to see if the view matrix will be updated next frame
 }
 
 Vector3 Camera::GetCamPosition()

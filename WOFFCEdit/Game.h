@@ -53,7 +53,8 @@ public:
 	void ClearDisplayList();
 
 	int MousePicking();
-	void SetObjectFog(int ObjectID);
+	void SetObjectFogTrue(int ObjectID);
+	void SetObjectFogFalse(int ObjectID);
 
 	void ManipulateTerrain(bool isDirectionUp, int index);
 

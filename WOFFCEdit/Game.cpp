@@ -582,28 +582,18 @@ int Game::MousePicking()
 		// Loop through the mesh list for the object
 		for (int y = 0; y < m_displayList[i].m_model.get()->meshes.size(); y++)
 		{
-            m_displayList[i].m_model.get()->UpdateEffects([&](IEffect* effect)
-            {
-                 auto fog = dynamic_cast<IEffectFog*>(effect);
-                 if (fog)
-                 {
-                     fog->SetFogEnabled(false);
-                     fog->SetFogStart(6); // assuming RH coordiantes
-                     fog->SetFogEnd(8);
-                     fog->SetFogColor(Colors::CornflowerBlue);
-                 }
-            });
+            SetObjectFogFalse(i);
 
 			// Checking for ray intersection
 			if (m_displayList[i].m_model.get()->meshes[y]->boundingBox.Intersects(nearPoint, pickingVector, pickedDistance))
 			{
-				if (pickedDistance < closestDistance)
+				if (pickedDistance < closestDistance) // Find closest object 
 				{
 					closestDistance = pickedDistance;
-					selectedID = i;
-                    m_Camera.SetPivot(m_displayList[i].m_position);
+					selectedID = i; // Set selected object to be current iteration
+                    m_Camera.SetPivot(m_displayList[i].m_position); // Set the camera's pivot to be the object's position
 
-                    SetObjectFog(selectedID);
+                    SetObjectFogTrue(selectedID); // Set the object's fog to be true
 				}
 			}
 		}
@@ -612,20 +602,35 @@ int Game::MousePicking()
 	return selectedID;
 }
 
-void Game::SetObjectFog(int ObjectID)
+void Game::SetObjectFogTrue(int ObjectID)
 {
-    m_displayList[ObjectID].m_model.get()->UpdateEffects([&](IEffect* effect)
+    m_displayList[ObjectID].m_model.get()->UpdateEffects([&](IEffect* effect) // Get the objects effects variable
     {
-        auto fog = dynamic_cast<IEffectFog*>(effect);
-        if (fog)
+        auto fog = dynamic_cast<IEffectFog*>(effect); // Get the fog effect
+        if (fog) // If it does have a fog effect
         {
-            fog->SetFogEnabled(true);
+            fog->SetFogEnabled(true); // Set the fog to be enabled
         }
     });
 }
 
-void Game::ManipulateTerrain(bool isDirectionUp, int index)
+void Game::SetObjectFogFalse(int ObjectID)
 {
-    m_displayChunk.GenerateHeightmap(index, isDirectionUp);
-    m_displayChunk.SaveHeightMap();
+    m_displayList[ObjectID].m_model.get()->UpdateEffects([&](IEffect* effect) // Get object effects
+        {
+            auto fog = dynamic_cast<IEffectFog*>(effect); // Get object fog effect
+            if (fog) // IF the object did have a fog effect
+            {
+                fog->SetFogEnabled(false); // Set it to be false
+                fog->SetFogStart(6); // assuming RH coordiantes
+                fog->SetFogEnd(8);
+                fog->SetFogColor(Colors::CornflowerBlue); // Set the fog colour to be blue
+            }
+        });
+}
+
+void Game::ManipulateTerrain(bool isDirectionUp, int index) 
+{
+    m_displayChunk.GenerateHeightmap(index, isDirectionUp); // Change the height map accordingly
+    m_displayChunk.SaveHeightMap(); // Save the height map to show the visual difference
 }
